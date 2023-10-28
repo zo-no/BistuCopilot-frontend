@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
-import Login from'./pages/login'
+import { useEffect } from 'react';
+import { useDispatch,useSelector } from 'react-redux';
+//导入actionCreater
+// import {increment ,decrement,addToNum} from './store/modules/counterStore';
+import { fetchChannlList } from './store/modules/channeelStore'
 
 function App() {
+  // const { count } = useSelector((state) => state.counter);//于组合子组件对应
+  const { channelList } = useSelector((state) => state.channel);
+  const dispatch = useDispatch();
+
+  //使用useEffect触发异步请求
+  useEffect(()=>{
+    dispatch(fetchChannlList())
+  },[dispatch])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <button onClick={() => dispatch(decrement())}>-</button>
+      {count}
+      <button onClick={() => dispatch(increment())}>+</button>
+      <button onClick={() => dispatch(addToNum(10))}>跳到10</button>
+      <button onClick={() => dispatch(addToNum(20))}>跳到20</button> */}
+      <ul>
+        {channelList.map(item => <li key={item.id}>{item.name}</li>)}
+      </ul>
     </div>
   );
 }
