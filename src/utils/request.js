@@ -34,4 +34,6 @@ const request = axios.create({
 //     return Promise.reject(error)
 // })
 
-export { request }
+export { 
+    request,
+ }

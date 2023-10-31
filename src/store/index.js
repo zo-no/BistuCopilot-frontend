@@ -1,7 +1,7 @@
 /*
 @Date		:2023/10/28 12:12:10
 @Author		:zono
-@Description:store入口文件
+@Description:组合redux子模块，和导出store实例
 */
 import { configureStore } from "@reduxjs/toolkit";
 //导入子模块reducer

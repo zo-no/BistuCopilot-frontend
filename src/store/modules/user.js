@@ -6,16 +6,17 @@
 */
 import { createSlice } from "@reduxjs/toolkit";
 import { request } from "@/utils";
+import { setToken as _setToken, getToken, removeToken } from '@/utils'
 
 const userStore = createSlice({
   name: "username",
   initialState: {
-    token: "",
+    token: getToken() || '',
   },
   reducers: {
-    setToken(state, action) {
-      state.token = action.payload;
-      // console.log(state.token);
+    setToken (state, action) {
+      state.token = action.payload
+      _setToken(action.payload)
     },
   },
 });
@@ -43,7 +44,7 @@ const fetchLogin = (loginForm) => {
       }
     }).then((response)=>{
         console.log(response.data);
-        dispatch(setToken(response.data.token));
+        dispatch(setToken(response.data.access_token));
     });
 
   };

@@ -3,19 +3,25 @@
 @Author		:zono
 @Description:登录页
 */
-import { Card, Form, Input, Button} from 'antd'
+import { Card, Form, Input, Button, message} from 'antd'
 import './index.scss'
 import logo from '@/assets/logo.png'
 import { fetchLogin } from '@/store/modules/user';
 import { useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const dispatch = useDispatch();
-  const onFinish = (values) =>{
+  const navigator = useNavigate();
+  const onFinish = async (values) =>  {
     //一个固定的读取表单的函数
     console.log( values);
     // 触发请求
-    dispatch(fetchLogin(values))
+    await dispatch(fetchLogin(values))
+    // 登录成功后跳转首页，并提示用户（避免异步）
+    navigator('/')
+    message.success('登录成功')
+    //TODO 登录失败
   }
   return (
     <div className="login">
