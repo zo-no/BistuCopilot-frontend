@@ -11,7 +11,6 @@ import "./index.scss";
 // //全局变量
 // import store from "./store";
 // import { Provider } from "react-redux";
-
 //路由
 import { RouterProvider } from 'react-router-dom'
 // 1. 导入路由router
