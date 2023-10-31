@@ -1,3 +1,8 @@
+/*
+@Date		:2023/10/31 19:25:28
+@Author		:zono
+@Description:登录页
+*/
 import { Card, Form, Input, Button} from 'antd'
 import './index.scss'
 import logo from '@/assets/logo.png'

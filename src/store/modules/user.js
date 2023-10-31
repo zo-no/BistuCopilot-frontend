@@ -1,37 +1,31 @@
 /*
 @Date		:2023/10/31 17:07:02
 @Author		:zono
-@Description:用户登录后的信息储存
+@Description:记录用户登录后的信息
+1、获取token
 */
 import { createSlice } from "@reduxjs/toolkit";
 import { request } from "@/utils";
-// import axios from "axios";
 
 const userStore = createSlice({
   name: "username",
-  //初始化state
   initialState: {
     token: "",
   },
-  //修改状态的方法，同步方法，支持直接修改
   reducers: {
     setToken(state, action) {
-      //获取token并储存
       state.token = action.payload;
+      // console.log(state.token);
     },
   },
 });
 
-const { setToken } = userStore.actions;
-
-const userReducer = userStore.reducer;
-
-//异步请求
 const fetchLogin = (loginForm) => {
-  console.log(loginForm);
+  /*
+  @Description: 异步请求获取token
+  */
   const username = loginForm.username;
   const password = loginForm.password;
-
   // 创建请求数据
   const requestData = new URLSearchParams();
   requestData.append('grant_type', '');
@@ -40,7 +34,6 @@ const fetchLogin = (loginForm) => {
   requestData.append('scope', '');
   requestData.append('client_id', '');
   requestData.append('client_secret', '');
-
   return async (dispatch) => {
     //分布异步请求，并存入
     request.post('/token', requestData,{
@@ -57,6 +50,11 @@ const fetchLogin = (loginForm) => {
 };
 
 
+
+//导出
+const { setToken } = userStore.actions;
+
+const userReducer = userStore.reducer;
 
 export { fetchLogin,setToken };
 export default userReducer;

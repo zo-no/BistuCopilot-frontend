@@ -1,7 +1,7 @@
 /*
 @Date		:2023/10/31 16:52:49
 @Author		:zono
-@Description:请求函数封装
+@Description:请求函数封装文件
 1、域名配置
 2、超时时间
 3.请求拦截器
