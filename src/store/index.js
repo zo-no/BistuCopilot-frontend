@@ -5,13 +5,13 @@
 */
 import { configureStore } from "@reduxjs/toolkit";
 //导入子模块reducer
-import counterReducer from "./modules/counterStore"
-import channelReducer from "./modules/channeelStore";
+import userReducer from "./modules/user"
+// import channelReducer from "./modules/channeelStore";
 
 const store = configureStore({
     reducer: {
-        counter: counterReducer,
-        channel: channelReducer,
+        user: userReducer,
+        // channel: channelReducer,
     }
 })
 
