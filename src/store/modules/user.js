@@ -57,8 +57,8 @@ const fetchLogin = (loginForm) => {
         },
       })
       .then((response) => {
-        console.log(response.data);
-        dispatch(setToken(response.data.access_token));
+        // console.log(response.data);
+        dispatch(setToken(response.data.token));
       });
   };
 };
@@ -67,7 +67,7 @@ const fetchUserInfo = () => {
   /*
   @Description: 用Token请求个人数据
   */
- console.log(123);
+//  console.log(123);
   const token = getToken();
   return async (dispatch) => {
     if (token) {
