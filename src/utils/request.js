@@ -15,8 +15,8 @@ const request = axios.create({
     timeout:5000
 })
 
-// //请求拦截器
-// //请求前，进行拦截，对参数处理
+//请求拦截器
+//请求前，进行拦截，对参数处理
 // request.interceptors.request.use((config)=>{
 //     //2xx范围的响应都会触发
 //     return config
@@ -24,10 +24,11 @@ const request = axios.create({
 //     return Promise.reject(error)
 // })
 
-// //响应拦截器
-// //在响应返回客户端之前拦截处理
+//响应拦截器
+//在响应返回客户端之前拦截处理
 // request.interceptors.request.use((response)=>{
 //     //2xx范围的响应都会触发
+//     console.log(123);
 //     return response.data
 // },(error)=>{
 //     //响应异常

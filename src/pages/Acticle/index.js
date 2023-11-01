@@ -10,7 +10,7 @@ const Article = () => {
   const name = params.name
   return (
     <div>
-      123
+      this is Article
       {id}-{name}
     </div>
   );
