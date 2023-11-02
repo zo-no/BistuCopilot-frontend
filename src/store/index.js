@@ -12,7 +12,7 @@ const store = configureStore({
     reducer: {
         user: userReducer,
         // channel: channelReducer,
-    }
+    },
 })
 
 export default store

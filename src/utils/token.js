@@ -4,7 +4,7 @@
 @Description:token管理工具
 */
 
-const TOKENKEY = 'token_key'
+const TOKENKEY = 'access_token'
 
 function setToken (token) {
   return localStorage.setItem(TOKENKEY, token)

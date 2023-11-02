@@ -32,12 +32,12 @@ const items = [
     icon: <HomeOutlined />,
   },
   {
-    label: '用户管理',
+    label: '文章管理',
     key: '/article',
     icon: <DiffOutlined />,
   },
   {
-    label: '创建权限',
+    label: '创建文章',
     key: '/publish',
     icon: <EditOutlined />,
   },

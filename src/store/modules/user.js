@@ -7,6 +7,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { removeToken, request } from "@/utils";
 import { setToken as _setToken, getToken } from "@/utils";
+import { loginAPI, getProFileAPI } from '@/apis/user'
 
 const userStore = createSlice({
   name: "username",
@@ -23,74 +24,74 @@ const userStore = createSlice({
       state.userInfo = action.payload;
     },
     clearUserInfo(state) {
-      state.token=''
+      state.token = "";
       state.userInfo = {};
-      removeToken()
-    }
+      removeToken();
+    },
   },
 });
 
 //导出
-const { setToken, setUserInfo,clearUserInfo } = userStore.actions;
+const { setToken, setUserInfo, clearUserInfo } = userStore.actions;
 
 const fetchLogin = (loginForm) => {
   /*
-  @Description: 异步请求获取token
+  @Description: 异步请求获取token,并返回应该promise函数
   */
-  const username = loginForm.username;
-  const password = loginForm.password;
-  // 创建请求数据
-  const requestData = new URLSearchParams();
-  requestData.append("grant_type", "");
-  requestData.append("username", username);
-  requestData.append("password", password);
-  requestData.append("scope", "");
-  requestData.append("client_id", "");
-  requestData.append("client_secret", "");
+  const { username, password } = loginForm;
+  const requestData = {
+    grant_type: "",
+    username,
+    password,
+    scope: "",
+    client_id: "",
+    client_secret: "",
+  };
   return async (dispatch) => {
     //分布异步请求，并存入
-    request
-      .post("/token", requestData, {
-        headers: {
-          'accept': "application/json",
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      })
-      .then((response) => {
-        // console.log(response.data);
-        dispatch(setToken(response.data.token));
-      });
+    const res = await loginAPI(requestData);
+    dispatch(setToken(res.data.access_token));
   };
 };
+
 
 const fetchUserInfo = () => {
   /*
   @Description: 用Token请求个人数据
   */
-//  console.log(123);
+  //  console.log(123);
   const token = getToken();
   return async (dispatch) => {
-    if (token) {
-      request
-        .get("/users/me", {
-          headers: {
-            'accept': 'application/json',
-            'Authorization': "Bearer " + token
-          },
-        })
-        .then((response) => {
-          console.log("请求成功了");
-          console.log(response.data);
-          dispatch(setUserInfo(response.data));
-        })
-        .catch((error) => {
-          // 处理错误
-          // err报错调整
-          console.error("请求失败:无法获取用户信息。", error.response.data.detail);
-        });
-    } else {
-      console.log( "用户未登录。")
-    }
+    // TODO 报错封装
+    // if (token) {
+      
+    //   request
+    //     .get("/users/me", {
+    //       headers: {
+    //         accept: "application/json",
+    //         Authorization: "Bearer " + token,
+    //       },
+    //     })
+    //     .then((response) => {
+    //       console.log("请求成功了");
+    //       console.log(response.data);
+    //       dispatch(setUserInfo(response.data));
+    //     })
+    //     .catch((error) => {
+    //       // 处理错误
+    //       // err报错调整
+    //       console.error(
+    //         "请求失败:无法获取用户信息。",
+    //         error.response.data.detail
+    //       );
+    //     });
+    // } else {
+    //   console.log("用户未登录。");
+    // }
+    const res = await getProFileAPI(token)  
+    console.log("请求用户信息成功了");
+    console.log(res.data);
+    dispatch(setUserInfo(res.data));
   };
 };
 

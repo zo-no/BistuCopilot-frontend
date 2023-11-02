@@ -19,12 +19,12 @@ const request = axios.create({
 
 //请求拦截器
 //请求前，进行拦截，对参数处理
-// request.interceptors.request.use((config)=>{
-//     //2xx范围的响应都会触发
-//     return config
-// },(error)=>{
-//     return Promise.reject(error)
-// })
+request.interceptors.request.use((config)=>{
+    //2xx范围的响应都会触发
+    return config
+},(error)=>{
+    return Promise.reject(error)
+})
 
 // 响应拦截器
 // 在响应返回客户端之前拦截处理
