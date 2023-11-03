@@ -18,11 +18,12 @@ import router from "./router";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
+  //严格模式会让组件渲染两次
     <Provider store={store}>
       {/* 2. 路由绑定 */}
       <RouterProvider router={router}></RouterProvider>
       {/* <App/> */}
     </Provider>
-  </React.StrictMode>
+  // </React.StrictMode>
 );
