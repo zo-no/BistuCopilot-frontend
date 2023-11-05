@@ -4,18 +4,19 @@
 @Description:登录页
 */
 import { Card, Form, Input, Button, message} from 'antd'
-import './index.scss'
-import logo from '@/assets/logo.png'
-import { fetchLogin } from '@/store/modules/user';
 import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
+
+import { fetchLogin } from '@/store/modules/user';
+import './index.scss'
+import logo from '@/assets/logo.png'
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigator = useNavigate();
   const onFinish = async (values) =>  {
     //一个固定的读取表单的函数
-    console.log( values);
+    // console.log( values);
     // 触发请求
     await dispatch(fetchLogin(values))
     // 登录成功后跳转首页，并提示用户（避免异步）

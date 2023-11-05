@@ -1,3 +1,8 @@
+/*
+@Date		:2023/11/04 21:27:47
+@Author		:zono
+@Description:发布页
+*/
 import {
   Card,
   Breadcrumb,
@@ -13,17 +18,28 @@ import {
 import { PlusOutlined } from "@ant-design/icons";
 import { Link, useSearchParams } from "react-router-dom";
 import ReactQuill from "react-quill";
-import 'react-quill/dist/quill.snow.css';
+import "react-quill/dist/quill.snow.css";
 import "./index.scss";
+import { useState, useEffect } from "react";
+
+import { getChannalAPI } from "@/apis/article";
 
 const { Option } = Select;
 
 const Publish = () => {
   //获取频道列表
-  // const {chanelList} = useChannel()
-
+  const [chanelList, setChanelList] = useState([]);
+  useEffect(() => {
+    const getChannalList = async () => {
+      //XXX 异步函数会自动解析promise
+      const res = await getChannalAPI();
+      // console.log(res);
+      setChanelList(res.data.channels);
+    };
+    getChannalList();
+  }, []);
+  console.log(chanelList);
   // 提交表单
-  const onFinish = (values) => {};
 
   //上传回调
 
@@ -49,7 +65,7 @@ const Publish = () => {
           labelCol={{ span: 4 }}
           wrapperCol={{ span: 16 }}
           initialValues={{ type: 0 }}
-          onFinish={onFinish}
+          // onFinish={onFinish}
           //   form={form}
         >
           <Form.Item
@@ -66,7 +82,11 @@ const Publish = () => {
           >
             <Select placeholder="请选择文章频道" style={{ width: 400 }}>
               {/* value属性用户选中之后会自动收集起来作为接口的提交字段 */}
-              {/* {channelList.map(item => <Option key={item.id} value={item.id}>{item.name}</Option>)} */}
+              {chanelList.map((item) => (
+                <Option key={item.id} value={item.id}>
+                  {item.name}
+                </Option>
+              ))}
             </Select>
           </Form.Item>
           <Form.Item label="封面">

@@ -50,6 +50,7 @@ const fetchLogin = (loginForm) => {
   return async (dispatch) => {
     //分布异步请求，并存入
     const res = await loginAPI(requestData);
+    // console.log(res);
     dispatch(setToken(res.data.access_token));
   };
 };
@@ -90,7 +91,7 @@ const fetchUserInfo = () => {
     // }
     const res = await getProFileAPI(token)  
     console.log("请求用户信息成功了");
-    console.log(res.data);
+    // console.log(res);
     dispatch(setUserInfo(res.data));
   };
 };
