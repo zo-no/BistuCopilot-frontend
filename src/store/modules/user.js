@@ -91,7 +91,7 @@ const fetchUserInfo = () => {
     // }
     const res = await getProFileAPI(token)  
     console.log("请求用户信息成功了");
-    // console.log(res);
+    console.log(res);
     dispatch(setUserInfo(res.data));
   };
 };

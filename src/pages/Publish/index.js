@@ -21,25 +21,36 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "./index.scss";
 import { useState, useEffect } from "react";
-
-import { getChannalAPI } from "@/apis/article";
+import { useSelector } from "react-redux";
+import { getChannalAPI, articleInput } from "@/apis/article";
 
 const { Option } = Select;
 
 const Publish = () => {
   //获取频道列表
-  const [chanelList, setChanelList] = useState([]);
+  const [channelList, setChannelList] = useState([]);
   useEffect(() => {
     const getChannalList = async () => {
       //XXX 异步函数会自动解析promise
       const res = await getChannalAPI();
       // console.log(res);
-      setChanelList(res.data.channels);
+      setChannelList(res.data.channels);
     };
     getChannalList();
   }, []);
-  console.log(chanelList);
+  // console.log(channelList);
   // 提交表单
+  const name = useSelector((state) => state.user.userInfo.username);
+  const onFinish = (values) => {
+    // values.username = name;
+    const data = {
+      title: values.title,
+      channels_id: values.channels_id,
+      content: values.content,
+    };
+    console.log(data);
+    articleInput(data)
+  };
 
   //上传回调
 
@@ -65,7 +76,7 @@ const Publish = () => {
           labelCol={{ span: 4 }}
           wrapperCol={{ span: 16 }}
           initialValues={{ type: 0 }}
-          // onFinish={onFinish}
+          onFinish={onFinish} //回调
           //   form={form}
         >
           <Form.Item
@@ -75,20 +86,22 @@ const Publish = () => {
           >
             <Input placeholder="请输入文章标题" style={{ width: 400 }} />
           </Form.Item>
+
           <Form.Item
             label="频道"
-            name="chanel_id"
+            name="channels_id"
             rules={[{ required: true, message: "请选择文章频道" }]}
           >
             <Select placeholder="请选择文章频道" style={{ width: 400 }}>
               {/* value属性用户选中之后会自动收集起来作为接口的提交字段 */}
-              {chanelList.map((item) => (
+              {channelList.map((item) => (
                 <Option key={item.id} value={item.id}>
                   {item.name}
                 </Option>
               ))}
             </Select>
           </Form.Item>
+
           <Form.Item label="封面">
             <Form.Item label="type">
               <Radio.Group>
@@ -115,6 +128,7 @@ const Publish = () => {
               </div>
             </Upload>} */}
           </Form.Item>
+
           <Form.Item
             label="内容"
             name="content"
